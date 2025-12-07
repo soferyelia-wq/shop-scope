@@ -3,97 +3,440 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Scope - Etsy Seller Insights</title>
+    <title>Shop Scope - Etsy Seller Insights Chrome Extension</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
             line-height: 1.6;
             color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
         }
+        
         header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        .highlight {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
             border-radius: 10px;
-            margin: 30px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .features {
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h2:before {
+            font-size: 1.5em;
+        }
+        
+        h2.features:before { content: "✨"; }
+        h2.how-it-works:before { content: "⚙️"; }
+        h2.api:before { content: "🔐"; }
+        h2.privacy:before { content: "🛡️"; }
+        h2.screenshots:before { content: "📱"; }
+        h2.installation:before { content: "🚀"; }
+        
+        .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            margin: 30px 0;
+            margin-top: 20px;
         }
+        
         .feature-card {
             background: #f8f9fa;
             padding: 20px;
             border-radius: 8px;
             border-left: 4px solid #667eea;
         }
-        footer {
-            margin-top: 40px;
+        
+        .feature-card h3 {
+            color: #495057;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .workflow {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .api-details {
+            background: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .screenshot {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
             text-align: center;
-            color: #666;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .screenshot-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+        
+        .note-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            color: #6c757d;
             font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            section {
+                padding: 20px;
+            }
+            
+            .feature-grid, .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>🔍 Shop Scope</h1>
-        <p>Chrome Extension for Etsy Sellers</p>
+        <h1>🔍 Shop Scope Chrome Extension</h1>
+        <p class="subtitle">Etsy Seller Insights & Analytics Tool</p>
+        <p>Enhance your Etsy selling experience with detailed listing insights and shop analytics</p>
     </header>
 
-    <div class="highlight">
-        <h2>Etsy Seller Insights & Analytics</h2>
-        <p>Display listing views, favorites count, and tags directly on Etsy pages.</p>
-    </div>
+    <section id="overview">
+        <h2>📋 Overview</h2>
+        <p><strong>Shop Scope</strong> is a Chrome Extension designed specifically for Etsy sellers. It displays valuable listing metrics and shop analytics directly on Etsy pages, helping sellers make data-driven decisions to improve their shops.</p>
+        
+        <div class="note-box">
+            <strong>⚠️ Important Compliance Note:</strong> This extension uses <strong>only the official Etsy API v3</strong> with proper rate limiting (10 requests/second). It does not perform any scraping, screen scraping, or unauthorized data collection.
+        </div>
+    </section>
 
-    <h3>✨ Key Features</h3>
-    <div class="features">
-        <div class="feature-card">
-            <h4>📊 Listing Insights</h4>
-            <p>See views and favorites for each listing on search results</p>
+    <section id="features">
+        <h2 class="features">Key Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>👁️ Listing Views & Favorites</h3>
+                <p>Display view counts and favorites for each listing directly on search results and individual listing pages.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🏷️ SEO Tags Analysis</h3>
+                <p>Show all tags associated with listings to help sellers optimize their SEO and discoverability.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🏪 Shop Performance Analysis</h3>
+                <p>Analyze shop metrics and provide actionable recommendations for improvement.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>⚡ Real-time Data</h3>
+                <p>Fetch fresh data from Etsy API with configurable caching (5 min to 4 hours).</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🔧 Customizable Display</h3>
+                <p>Users can choose which metrics to display and customize the extension's appearance.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>📊 Data Management</h3>
+                <p>Clear cache, export/import settings, and manage API rate limits.</p>
+            </div>
         </div>
-        <div class="feature-card">
-            <h4>🏪 Shop Analysis</h4>
-            <p>Get performance recommendations and improvement tips</p>
-        </div>
-        <div class="feature-card">
-            <h4>🔐 Privacy First</h4>
-            <p>All data processed locally in your browser</p>
-        </div>
-        <div class="feature-card">
-            <h4>⚡ Real-time Data</h4>
-            <p>Uses Etsy API v3 with rate limiting and caching</p>
-        </div>
-    </div>
+    </section>
 
-    <h3>🛠️ Technical Details</h3>
-    <ul>
-        <li><strong>Type:</strong> Chrome Extension (Manifest V3)</li>
-        <li><strong>API:</strong> Etsy Open API v3</li>
-        <li><strong>Version:</strong> 1.0.0</li>
-        <li><strong>Data:</strong> Processed locally, no external servers</li>
-        <li><strong>Rate Limiting:</strong> 10 requests/second as per Etsy guidelines</li>
-    </ul>
+    <section id="how-it-works">
+        <h2 class="how-it-works">How It Works</h2>
+        
+        <div class="workflow">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>User Installation</strong><br>
+                    User installs the Chrome Extension from Chrome Web Store
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>API Configuration</strong><br>
+                    User enters their personal Etsy API key (obtained from Etsy Developers)
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Page Detection</strong><br>
+                    Extension detects when user is on Etsy.com (search results, listing pages, or shop pages)
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>API Requests</strong><br>
+                    Extension makes authorized API calls to Etsy's official API endpoints
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Data Display</strong><br>
+                    Extension displays insights as overlays directly on the Etsy pages
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="api-details">
+        <h2 class="api">API Usage & Compliance</h2>
+        
+        <div class="api-details">
+            <h3>📡 Official Etsy API v3 Integration</h3>
+            <p>The extension uses <strong>only authorized API endpoints</strong> and follows all Etsy API guidelines:</p>
+            
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>API Base URL:</strong> https://openapi.etsy.com/v3</li>
+                <li><strong>Rate Limiting:</strong> Strictly enforces 10 requests/second limit</li>
+                <li><strong>Endpoints Used:</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li><code>/application/listings/{listing_id}</code> - Get listing details</li>
+                        <li><code>/application/shops/{shop_id}</code> - Get shop information</li>
+                        <li><code>/application/seller-taxonomy/nodes</code> - For API testing only</li>
+                    </ul>
+                </li>
+                <li><strong>Authentication:</strong> API Key only (no OAuth required for public data)</li>
+                <li><strong>Data Scope:</strong> Only public listing and shop data - no private sales data</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="privacy">
+        <h2 class="privacy">Privacy & Security</h2>
+        <p><strong>All data processing happens locally in the user's browser:</strong></p>
+        
+        <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>✅ <strong>No external servers</strong> - No data is sent to our servers</li>
+            <li>✅ <strong>Local storage only</strong> - API keys and settings stored locally in Chrome storage</li>
+            <li>✅ <strong>No tracking</strong> - No analytics, no user tracking, no data collection</li>
+            <li>✅ <strong>GDPR compliant</strong> - Only processes data the user explicitly requests</li>
+            <li>✅ <strong>Open source</strong> - Code is transparent and can be reviewed</li>
+        </ul>
+    </section>
+
+    <section id="screenshots">
+        <h2 class="screenshots">Extension Interface</h2>
+        
+        <div class="screenshot-grid">
+            <div class="screenshot">
+                <div class="screenshot-icon">🔍</div>
+                <h3>Search Results Enhancement</h3>
+                <p>Listing insights appear directly below each listing on search pages</p>
+                <p><em>Shows: Views, Favorites, Tags</em></p>
+            </div>
+            
+            <div class="screenshot">
+                <div class="screenshot-icon">🏪</div>
+                <h3>Shop Analysis Popup</h3>
+                <p>Popup interface for analyzing current shop and getting recommendations</p>
+                <p><em>Shows: Active listings, recommendations, shop stats</em></p>
+            </div>
+            
+            <div class="screenshot">
+                <div class="screenshot-icon">⚙️</div>
+                <h3>Settings Page</h3>
+                <p>Comprehensive settings for API configuration, display options, and performance</p>
+                <p><em>Features: API testing, cache management, export/import</em></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="technical">
+        <h2>💻 Technical Details</h2>
+        
+        <ul style="margin-left: 20px;">
+            <li><strong>Extension Type:</strong> Chrome Extension (Manifest V3)</li>
+            <li><strong>Content Scripts:</strong> Injected into Etsy.com pages only</li>
+            <li><strong>Background Service Worker:</strong> Handles API requests with rate limiting</li>
+            <li><strong>Storage:</strong> Chrome Storage API (local, sync)</li>
+            <li><strong>Permissions:</strong>
+                <ul style="margin-left: 20px;">
+                    <li><code>activeTab</code> - To interact with current Etsy tab</li>
+                    <li><code>storage</code> - To save user settings</li>
+                    <li><code>scripting</code> - To inject content scripts</li>
+                    <li><code>etsy.com/*</code> - Host permission for Etsy pages</li>
+                </ul>
+            </li>
+            <li><strong>Version:</strong> 1.0.0</li>
+        </ul>
+    </section>
+
+    <section id="installation">
+        <h2 class="installation">Installation & Setup</h2>
+        
+        <div class="workflow">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Get Etsy API Key</strong><br>
+                    User obtains API key from Etsy Developers Portal
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Install Extension</strong><br>
+                    Install from Chrome Web Store (or load unpacked for development)
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Configure API Key</strong><br>
+                    Enter API key in extension settings and test connection
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Customize Settings</strong><br>
+                    Choose which insights to display and configure caching
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Start Using</strong><br>
+                    Navigate to Etsy.com - insights will appear automatically
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="compliance">
+        <h2>✅ Etsy Policy Compliance</h2>
+        
+        <div class="note-box">
+            <strong>This extension fully complies with Etsy's API Terms of Service:</strong>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>✔️ Uses only official Etsy API v3 endpoints</li>
+                <li>✔️ Implements strict rate limiting (10 requests/second)</li>
+                <li>✔️ Only accesses public data (no private/sales data)</li>
+                <li>✔️ No scraping, screen scraping, or unauthorized access</li>
+                <li>✔️ Respects robots.txt and terms of service</li>
+                <li>✔️ Proper attribution and not implying Etsy endorsement</li>
+                <li>✔️ Privacy-focused with local data processing</li>
+            </ul>
+        </div>
+    </section>
 
     <footer>
         <p>© 2024 Shop Scope Chrome Extension</p>
-        <p>For individual Etsy sellers and small teams</p>
-        <p>This extension is not affiliated with or endorsed by Etsy, Inc.</p>
+        <p>This extension is not affiliated with, endorsed by, or sponsored by Etsy, Inc.</p>
+        <p>Etsy is a trademark of Etsy, Inc.</p>
+        <p><small>Website for Etsy App Review - This page explains how the extension works for review purposes.</small></p>
     </footer>
 </body>
 </html>
